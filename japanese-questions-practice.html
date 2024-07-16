@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japanese Questions Listening Practice</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-4 text-center">Japanese Questions Listening Practice</h1>
+        <div id="questionContainer" class="mb-4 text-center text-lg hidden"></div>
+        <div class="flex justify-center space-x-4">
+            <button id="readButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Read Question</button>
+            <button id="showButton" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Show Question</button>
+            <button id="nextButton" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">Next Question</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            "お名前は何ですか？",
+            "お元気ですか？",
+            "出身はどこですか？",
+            "日本語が話せますか？",
+            "英語が分かりますか？",
+            "何歳ですか？",
+            "お仕事は何ですか？",
+            "趣味は何ですか？",
+            "家族は何人ですか？",
+            "日本に来たのは初めてですか？",
+            "何時ですか？",
+            "今日の日付は何ですか？",
+            "昨日何をしましたか？",
+            "明日の予定は何ですか？",
+            "好きな食べ物は何ですか？",
+            "どこに住んでいますか？",
+            "電話番号は何番ですか？",
+            "メールアドレスは何ですか？",
+            "どのくらい日本語を勉強していますか？",
+            "日本で何が一番好きですか？",
+            "週末に何をする予定ですか？",
+            "どんな音楽が好きですか？",
+            "日本語の勉強は難しいですか？",
+            "日本の食べ物は好きですか？",
+            "何か質問はありますか？",
+            "どうやって学校に行きますか？",
+            "休日は何をしますか？",
+            "日本語の先生の名前は何ですか？",
+            "昼ご飯は何を食べましたか？",
+            "スポーツをしますか？",
+            "テレビをよく見ますか？",
+            "今、何を勉強していますか？",
+            "日本の文化で何が一番興味がありますか？",
+            "日本語の漢字は難しいですか？",
+            "日本に行ったことがありますか？",
+            "どんな本を読むのが好きですか？",
+            "日本語でどんな単語が一番好きですか？",
+            "日本のどこに行きたいですか？",
+            "アニメを見ますか？",
+            "日本語の勉強にはどんな方法を使っていますか？",
+            "家族と一緒に住んでいますか？",
+            "日本の友達はいますか？",
+            "日本語の発音は難しいですか？",
+            "日本の季節で何が一番好きですか？",
+            "日本語を話すときに何が一番難しいですか？",
+            "日本の祭りに参加したことがありますか？",
+            "どんな日本料理が好きですか？",
+            "日本語の方言に興味がありますか？",
+            "日本でしたいことは何ですか？",
+            "日本語を勉強する理由は何ですか？"
+        ];
+
+        let currentQuestionIndex = 0;
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        function displayQuestion() {
+            const questionContainer = document.getElementById('questionContainer');
+            questionContainer.textContent = questions[currentQuestionIndex];
+            questionContainer.classList.add('hidden');
+        }
+
+        function readQuestion() {
+            const utterance = new SpeechSynthesisUtterance(questions[currentQuestionIndex]);
+            utterance.lang = 'ja-JP';
+            speechSynthesis.speak(utterance);
+        }
+
+        function showQuestion() {
+            const questionContainer = document.getElementById('questionContainer');
+            questionContainer.classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            displayQuestion();
+        }
+
+        document.getElementById('readButton').addEventListener('click', readQuestion);
+        document.getElementById('showButton').addEventListener('click', showQuestion);
+        document.getElementById('nextButton').addEventListener('click', nextQuestion);
+
+        shuffleArray(questions);
+        displayQuestion();
+    </script>
+</body>
+</html>
