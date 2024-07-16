@@ -15,8 +15,10 @@
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold mb-4 text-center">Japanese Questions Listening Practice</h1>
         <div id="questionContainer" class="mb-4 text-center text-lg hidden"></div>
-        <div class="flex justify-center space-x-4">
+        <div class="flex flex-wrap justify-center space-x-2 space-y-2">
             <button id="readButton" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Read Question</button>
+            <button id="readSlowButton" class="bg-blue-300 text-white px-4 py-2 rounded hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50">Read Slowly (0.5x)</button>
+            <button id="readSlowButton2" class="bg-blue-300 text-white px-4 py-2 rounded hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-opacity-50">Read Slowly (0.75x)</button>
             <button id="showButton" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50">Show Question</button>
             <button id="nextButton" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50">Next Question</button>
         </div>
@@ -90,9 +92,10 @@
             questionContainer.classList.add('hidden');
         }
 
-        function readQuestion() {
+        function readQuestion(rate = 1) {
             const utterance = new SpeechSynthesisUtterance(questions[currentQuestionIndex]);
             utterance.lang = 'ja-JP';
+            utterance.rate = rate;
             speechSynthesis.speak(utterance);
         }
 
@@ -106,7 +109,9 @@
             displayQuestion();
         }
 
-        document.getElementById('readButton').addEventListener('click', readQuestion);
+        document.getElementById('readButton').addEventListener('click', () => readQuestion(1));
+        document.getElementById('readSlowButton').addEventListener('click', () => readQuestion(0.5));
+        document.getElementById('readSlowButton2').addEventListener('click', () => readQuestion(0.75));
         document.getElementById('showButton').addEventListener('click', showQuestion);
         document.getElementById('nextButton').addEventListener('click', nextQuestion);
 
